@@ -82,11 +82,6 @@ pipeline {
                 }                
             }
         }
-        post {
-            always {
-                echo 'Deployment to the staging server complete'
-            }
-        }
 
         stage('Integration Tests on Staging') {
             steps {
