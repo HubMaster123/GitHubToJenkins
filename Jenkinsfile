@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         EMAIL_RECIPIENT = 'suterliam85@gmail.com'
-        BUILD_TOOL = 'maven' // or 'gradle' for a Gradle project
+        BUILD_TOOL = 'maven3' // or 'gradle' for a Gradle project
         SECURITY_TOOL = 'sonarqube'
     }
 
