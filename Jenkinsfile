@@ -1,9 +1,9 @@
 pipeline {
     agent any
     
-    environment {
+    tools {
         // Define the Maven tool name as configured in Jenkins
-        MAVEN_HOME = tool name: 'Maven3', type: 'maven'
+        maven 'Maven 3.9.9' // Ensure this matches the Maven tool name configured in Jenkins
     }
 
     stages {
@@ -14,7 +14,7 @@ pipeline {
                     echo 'Building the Project...'
                     
                     // Run Maven build command
-                    sh "'${MAVEN_HOME}/bin/mvn' clean install"
+                    bat '"%MAVEN_HOME%\\bin\\mvn.cmd" clean install'
                 }
             }
         }
