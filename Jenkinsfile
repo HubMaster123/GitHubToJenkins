@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven3'
+    }
+    
     environment {
         AWS_DEFAULT_REGION = 'ap-southeast-2' 
         STAGING_INSTANCE_ID = 'i-0e6aed80d07b7a1d0'
