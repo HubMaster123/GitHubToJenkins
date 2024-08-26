@@ -64,14 +64,13 @@ pipeline {
                     // Print the environment variables for debugging
                     echo "Deploying to staging server..."
 
-                    // Copy the deployment script to the EC2 instance
                     sh """
-                        //aws ec2-instance-connect send-ssh-public-key \
-                            //--instance-id ${STAGING_INSTANCE_ID} \
-                            //--availability-zone us-west-2a \
-                            //--instance-os-user ec2-user \
-                            //--ssh-public-key file://~/.ssh/id_rsa.pub
-
+                        # aws ec2-instance-connect send-ssh-public-key \
+                        # --instance-id ${STAGING_INSTANCE_ID} \
+                        # --availability-zone us-west-2a \
+                        # --instance-os-user ec2-user \
+                        # --ssh-public-key file://~/.ssh/id_rsa.pub
+                    
                         scp -i ~/.ssh/id_rsa ${DEPLOYMENT_SCRIPT_PATH} ec2-user@${STAGING_INSTANCE_ID}:/home/ec2-user/
                     """
                     
