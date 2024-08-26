@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = 'ap-southeast-2' 
-        STAGING_INSTANCE ID = 'i-0e6aed80d07b7a1d0'
+        STAGING_INSTANCE_ID = 'i-0e6aed80d07b7a1d0'
         DEPLOYMENT_SCRIPT_PATH = ''
     }
     
@@ -66,11 +66,11 @@ pipeline {
 
                     // Copy the deployment script to the EC2 instance
                     sh """
-                        aws ec2-instance-connect send-ssh-public-key \
-                            --instance-id ${STAGING_INSTANCE_ID} \
-                            --availability-zone us-west-2a \
-                            --instance-os-user ec2-user \
-                            --ssh-public-key file://~/.ssh/id_rsa.pub
+                        //aws ec2-instance-connect send-ssh-public-key \
+                            //--instance-id ${STAGING_INSTANCE_ID} \
+                            //--availability-zone us-west-2a \
+                            //--instance-os-user ec2-user \
+                            //--ssh-public-key file://~/.ssh/id_rsa.pub
 
                         scp -i ~/.ssh/id_rsa ${DEPLOYMENT_SCRIPT_PATH} ec2-user@${STAGING_INSTANCE_ID}:/home/ec2-user/
                     """
@@ -86,6 +86,8 @@ pipeline {
         post {
             always {
                 echo 'Deployment to the staging server complete'
+            }
+        }
 
         stage('Integration Tests on Staging') {
             steps {
