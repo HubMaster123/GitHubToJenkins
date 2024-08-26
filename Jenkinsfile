@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EMAIL_RECIPIENT = 'developer@example.com'
+        EMAIL_RECIPIENT = 'suterliam85@gmail.com'
         BUILD_TOOL = 'maven' // or 'gradle' for a Gradle project
         SECURITY_TOOL = 'sonarqube'
     }
