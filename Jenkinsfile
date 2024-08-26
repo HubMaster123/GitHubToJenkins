@@ -82,7 +82,6 @@ pipeline {
                 }                
             }
         }
-
         post {
             always {
                 echo 'Deployment to the staging server complete'
