@@ -1,41 +1,91 @@
 pipeline {
     agent any
 
+    environment {
+        AWS_DEFAULT_REGION = 'ap-southeast-2' 
+        STAGING_INSTANCE ID = 'i-0e6aed80d07b7a1d0'
+        DEPLOYMENT_SCRIPT_PATH = ''
+    }
+    
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                echo 'Tool: Maven'  // or Gradle, Ant, etc.
+                script {
+                    //Maven Build
+                    echo 'Building the Project...'
+                    sh 'mvn clean install'
+                }
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Running unit and integration tests...'
-                echo 'Tools: JUnit for unit tests, Selenium for integration tests'  // Or any other tools
+                script {
+                    echo 'Running unit and integration tests...'
+                    sh 'mvn test'
+                    sh 'mvn verify'
+                }
             }
         }
 
         stage('Code Analysis') {
             steps {
-                echo 'Analyzing code quality...'
-                echo 'Tool: SonarQube'  // Or any other code analysis tool
+                echo 'Running Checkstyle analysis...'
+                // Run Checkstyle with Maven. 
+                sh 'mvn checkstyle:checkstyle'
+            }
+            post {
+                always {
+                    //Archive Checkstyle reports\
+                    archiveArtifacts artifacts: '**/checkstyle-result.xml'
+                    recordIssues(tools: [checkStyle(pattern: '**/checkstyle-result.xml')])
+                }
             }
         }
 
         stage('Security Scan') {
             steps {
-                echo 'Performing security scan...'
-                echo 'Tool: OWASP Dependency-Check'  // Or any other security tool
+                echo 'Running OWASP Dependency-Check...'
+                //Run the Dependency-Check with Maven. 
+                sh 'mvn org.owasp:dependency-check-maven:check'
             }
+            post {
+                always {
+                    //Archive Dependency-Check reports
+                    archiveArtifacts artifacts: '**/dependency-check-report.xml'
+                    recordIssues(tools: [dependencyCheck(pattern: '**/dependency-check-report.xml')])
+                }
+            }                    
         }
 
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to staging server...'
-                echo 'Staging Environment: AWS EC2 instance'  // Or any other staging environment
+                script {
+                    // Print the environment variables for debugging
+                    echo "Deploying to staging server..."
+
+                    // Copy the deployment script to the EC2 instance
+                    sh """
+                        aws ec2-instance-connect send-ssh-public-key \
+                            --instance-id ${STAGING_INSTANCE_ID} \
+                            --availability-zone us-west-2a \
+                            --instance-os-user ec2-user \
+                            --ssh-public-key file://~/.ssh/id_rsa.pub
+
+                        scp -i ~/.ssh/id_rsa ${DEPLOYMENT_SCRIPT_PATH} ec2-user@${STAGING_INSTANCE_ID}:/home/ec2-user/
+                    """
+                    
+                    // Execute the deployment script on the EC2 instance
+                    sh """
+                        ssh -i ~/.ssh/id_rsa ec2-user@${STAGING_INSTANCE_ID} 'bash /home/ec2-user/deployment-script.sh'
+                    """
+                }                
             }
         }
+
+        post {
+            always {
+                echo 'Deployment to the staging server complete'
 
         stage('Integration Tests on Staging') {
             steps {
