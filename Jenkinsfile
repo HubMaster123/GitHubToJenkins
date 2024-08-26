@@ -2,98 +2,65 @@ pipeline {
     agent any
 
     stages {
-        stage('Team Formation') {
-            steps {
-                echo 'Forming the team...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Team Formed!'
-            }
-        }
-
-        stage('Project Planning') {
-            steps {
-                echo 'Planning the project...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Project Planned!'
-            }
-        }
-
-        stage('Code Checkout') {
-            steps {
-                echo 'Checking out the code...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Code Checked!'
-            }
-        }
-
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Project Built!'
+                echo 'Tool: Maven'  // or Gradle, Ant, etc.
             }
         }
 
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo 'Running tests...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Tests Ran!'
+                echo 'Running unit and integration tests...'
+                echo 'Tools: JUnit for unit tests, Selenium for integration tests'  // Or any other tools
             }
         }
 
-        stage('Deploy') {
+        stage('Code Analysis') {
             steps {
-                echo 'Deploying the application...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Application Deployed!'
+                echo 'Analyzing code quality...'
+                echo 'Tool: SonarQube'  // Or any other code analysis tool
             }
         }
 
-        stage('Review') {
+        stage('Security Scan') {
             steps {
-                echo 'Reviewing the project...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Project Reviewed!'
+                echo 'Performing security scan...'
+                echo 'Tool: OWASP Dependency-Check'  // Or any other security tool
             }
         }
 
-        stage('Retrospective') {
+        stage('Deploy to Staging') {
             steps {
-                echo 'Holding a retrospective...'
-                echo '...'
-		echo '...'
-		echo '...'
-		echo '...'
-		echo 'Retrospective Done!'
+                echo 'Deploying to staging server...'
+                echo 'Staging Environment: AWS EC2 instance'  // Or any other staging environment
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Running integration tests on staging...'
+                echo 'Tool: Selenium or JUnit'  // Or any other tool suitable for testing
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploying to production server...'
+                echo 'Production Environment: AWS EC2 instance'  // Or any other production environment
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline finished.'
+            echo 'Pipeline execution completed.'
+        }
+        success {
+            echo 'Pipeline succeeded.'
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
