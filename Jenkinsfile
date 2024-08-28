@@ -27,8 +27,8 @@ pipeline {
                 success {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: "s223077216@deakin.edu.au",
-                        to: "suterliam85@gmail.com",
+                        from: 's223077216@deakin.edu.au',
+                        to: 'suterliam85@gmail.com',
                         subject: "Unit and Integration Tests Successful",
                         body: "The Unit and Integration Tests stage completed successfully. Logs are attached.",
                         attachmentsPattern: "*.log"
@@ -37,8 +37,8 @@ pipeline {
                 failure {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: "s223077216@deakin.edu.au",
-                        to: "suterliam85@gmail.com",
+                        from: 's223077216@deakin.edu.au',
+                        to: 'suterliam85@gmail.com',
                         subject: "Unit and Integration Tests Failed",
                         body: "The Unit and Integration Tests stage failed. Logs are attached.",
                         attachmentsPattern: "*.log"
@@ -68,8 +68,8 @@ pipeline {
                 success {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: "s223077216@deakin.edu.au",
-                        to: "suterliam85@gmail.com",
+                        from: 's223077216@deakin.edu.au',
+                        to: 'suterliam85@gmail.com',
                         subject: "Security Scan Successful",
                         body: "The Security Scan stage completed successfully. Logs are attached.",
                         attachmentsPattern: "*.log"
@@ -78,8 +78,8 @@ pipeline {
                 failure {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: "s223077216@deakin.edu.au",
-                        to: "suterliam85@gmail.com",
+                        from: 's223077216@deakin.edu.au',
+                        to: 'suterliam85@gmail.com',
                         subject: "Security Scan Failed",
                         body: "The Security Scan stage failed. Logs are attached.",
                         attachmentsPattern: "*.log"
