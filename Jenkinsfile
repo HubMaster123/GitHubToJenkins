@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        EMAIL_RECIPIENT = 'suterliam85@gmail.com'
-    }
+    //environment {
+        //EMAIL_RECIPIENT = 'suterliam85@gmail.com'
+    //}
 
     stages {
         stage('Build') {
@@ -20,13 +20,14 @@ pipeline {
                 script {
                     echo 'Running unit and integration tests...'
                     echo 'Using JUnit for unit testing and Maven Surefire Plugin for integration tests.'
-                    echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
+                    //echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
                 }
             }
             post {
                 success {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
+                        //to: "${EMAIL_RECIPIENT}",
+                        to: "<suterliam85@gmail.com>",
                         subject: "Unit and Integration Tests Successful",
                         body: "The Unit and Integration Tests stage completed successfully. Logs are attached.",
                         attachmentsPattern: "*.log"
@@ -34,7 +35,8 @@ pipeline {
                 }
                 failure {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
+                        //to: "${EMAIL_RECIPIENT}",
+                        to: "<suterliam85@gmail.com>",
                         subject: "Unit and Integration Tests Failed",
                         body: "The Unit and Integration Tests stage failed. Logs are attached.",
                         attachmentsPattern: "*.log"
@@ -63,7 +65,8 @@ pipeline {
             post {
                 success {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
+                        //to: "${EMAIL_RECIPIENT}",
+                        to: "<suterliam85@gmail.com>",
                         subject: "Security Scan Successful",
                         body: "The Security Scan stage completed successfully. Logs are attached.",
                         attachmentsPattern: "*.log"
@@ -71,7 +74,8 @@ pipeline {
                 }
                 failure {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
+                        //to: "${EMAIL_RECIPIENT}",
+                        to: "<suterliam85@gmail.com>",
                         subject: "Security Scan Failed",
                         body: "The Security Scan stage failed. Logs are attached.",
                         attachmentsPattern: "*.log"
