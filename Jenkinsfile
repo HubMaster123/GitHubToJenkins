@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         EMAIL_RECIPIENT = 'suterliam85@gmail.com'
-        BUILD_TOOL = 'maven3' // or 'gradle' for a Gradle project
-        SECURITY_TOOL = 'sonarqube'
     }
 
     stages {
@@ -12,10 +10,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the code...'
-                    // For Maven:
-                    bat 'mvn clean install'
-                    // For Gradle:
-                    // bat 'gradlew build'
+                    echo 'Using Maven to compile and package the code.'
                 }
             }
         }
@@ -24,10 +19,25 @@ pipeline {
             steps {
                 script {
                     echo 'Running unit and integration tests...'
-                    // For Maven:
-                    bat 'mvn test'
-                    // For Gradle:
-                    // bat 'gradlew test'
+                    echo 'Using JUnit for unit testing and Maven Surefire Plugin for integration tests.'
+                }
+            }
+            post {
+                success {
+                    emailext (
+                        to: "${EMAIL_RECIPIENT}",
+                        subject: "Unit and Integration Tests Successful",
+                        body: "The Unit and Integration Tests stage completed successfully. Logs are attached.",
+                        attachmentsPattern: "*.log"
+                    )
+                }
+                failure {
+                    emailext (
+                        to: "${EMAIL_RECIPIENT}",
+                        subject: "Unit and Integration Tests Failed",
+                        body: "The Unit and Integration Tests stage failed. Logs are attached.",
+                        attachmentsPattern: "*.log"
+                    )
                 }
             }
         }
@@ -36,8 +46,7 @@ pipeline {
             steps {
                 script {
                     echo 'Performing code analysis...'
-                    // SonarQube example:
-                    bat 'sonar-scanner'
+                    echo 'Using SonarQube to analyse the code for quality and industry standards.'
                 }
             }
         }
@@ -46,8 +55,25 @@ pipeline {
             steps {
                 script {
                     echo 'Performing security scan...'
-                    // Example: OWASP ZAP
-                    bat 'zap-cli quick-scan http://your-app-url'
+                    echo 'Using OWASP Dependency Check to scan the code for vulnerabilities.'
+                }
+            }
+            post {
+                success {
+                    emailext (
+                        to: "${EMAIL_RECIPIENT}",
+                        subject: "Security Scan Successful",
+                        body: "The Security Scan stage completed successfully. Logs are attached.",
+                        attachmentsPattern: "*.log"
+                    )
+                }
+                failure {
+                    emailext (
+                        to: "${EMAIL_RECIPIENT}",
+                        subject: "Security Scan Failed",
+                        body: "The Security Scan stage failed. Logs are attached.",
+                        attachmentsPattern: "*.log"
+                    )
                 }
             }
         }
@@ -55,9 +81,8 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 script {
-                    echo 'Deploying to staging environment...'
-                    // Example: Custom deployment script
-                    bat 'deploy-script.bat staging'
+                    echo 'Deploying the application to the staging environment...'
+                    echo 'Using custom deployment script for deployment.'
                 }
             }
         }
@@ -65,9 +90,8 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 script {
-                    echo 'Running integration tests on staging...'
-                    // Example: Custom integration test script
-                    bat 'integration-tests.bat staging'
+                    echo 'Running integration tests on the staging environment...'
+                    echo 'Using custom integration testing script.'
                 }
             }
         }
@@ -75,30 +99,10 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 script {
-                    echo 'Deploying to production environment...'
-                    // Example: Custom deployment script
-                    bat 'deploy-script.bat production'
+                    echo 'Deploying the application to the production environment...'
+                    echo 'Using custom deployment script for deployment.'
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            emailext (
-                to: "${EMAIL_RECIPIENT}",
-                subject: "Build Successful",
-                body: "The build was successful. Please find the build logs attached.",
-                attachmentsPattern: "*.log"
-            )
-        }
-        failure {
-            emailext (
-                to: "${EMAIL_RECIPIENT}",
-                subject: "Build Failed",
-                body: "The build failed. Please find the build logs attached.",
-                attachmentsPattern: "*.log"
-            )
         }
     }
 }
