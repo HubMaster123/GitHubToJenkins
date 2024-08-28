@@ -20,6 +20,7 @@ pipeline {
                 script {
                     echo 'Running unit and integration tests...'
                     echo 'Using JUnit for unit testing and Maven Surefire Plugin for integration tests.'
+                    echo 'Sending email to: ${EMAIL_RECIPIENT}"
                 }
             }
             post {
@@ -56,6 +57,7 @@ pipeline {
                 script {
                     echo 'Performing security scan...'
                     echo 'Using OWASP Dependency Check to scan the code for vulnerabilities.'
+                    echo 'Sending email to: ${EMAIL_RECIPIENT}"
                 }
             }
             post {
