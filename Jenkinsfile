@@ -59,7 +59,7 @@ pipeline {
                 script {
                     echo 'Performing security scan...'
                     echo 'Using OWASP Dependency Check to scan the code for vulnerabilities.'
-                    echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
+                    //echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
                 }
             }
             post {
