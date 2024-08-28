@@ -1,8 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        EMAIL_RECIPIENT = 'suterliam85@gmail.com'
+    //environment {
+        //EMAIL_RECIPIENT = 'suterliam85@gmail.com'
+    //}
+
+    parameters {
+        string(
+            name: 'email',
+            defaultValue: 'suterliam85@gmail.com',
+            description: 'Email Address for the notification')
     }
 
     stages {
