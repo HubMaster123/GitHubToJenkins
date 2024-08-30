@@ -1,23 +1,3 @@
-/*
-pipeline{
-    agent any
-    stages{
-        stage("Build"){
-            steps{
-                echo "Building..."
-            }
-            post{
-                success{
-                    mail to: "suterliam85@gmail.com", 
-                    subject: "Build Status Email",
-                    body: "Build was successful!"
-                }
-            }
-        }
-    }
-}
-*/
-
 pipeline {
     agent any
 
@@ -45,18 +25,16 @@ pipeline {
             }
             post {
                 success {
-                    emailext (
                         mail to: "${EMAIL_RECIPIENT}",
                         subject: "Unit and Integration Tests Successful",
                         body: "The Unit and Integration Tests stage completed successfully. Logs are attached.",
-                    )
+			attachmentsPattern: "*.log"
                 }
                 failure {
-                    emailext (
                         mail to: "${EMAIL_RECIPIENT}",
                         subject: "Unit and Integration Tests Failed",
                         body: "The Unit and Integration Tests stage failed. Logs are attached.",
-                    )
+			attachmentsPattern: "*.log"
                 }
             }
         }
@@ -75,24 +53,21 @@ pipeline {
                 script {
                     echo 'Performing security scan...'
                     echo 'Using OWASP Dependency Check to scan the code for vulnerabilities.'
-                    //echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
+                    echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
                 }
             }
             post {
                 success {
-                    emailext (
                         mail to: "${EMAIL_RECIPIENT}",
                         subject: "Security Scan Successful",
                         body: "The Security Scan stage completed successfully. Logs are attached.",
-                    )
+			attachmentsPattern: "*.log"
                 }
                 failure {
-                    emailext (
                         mail to: "${EMAIL_RECIPIENT}",
                         subject: "Security Scan Failed",
                         body: "The Security Scan stage failed. Logs are attached.",
-                        //attachmentsPattern: "*.log"
-                    )
+                        attachmentsPattern: "*.log"
                 }
             }
         }
@@ -125,4 +100,3 @@ pipeline {
         }
     }
 }
-
