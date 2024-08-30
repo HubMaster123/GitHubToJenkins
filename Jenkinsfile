@@ -17,7 +17,7 @@ pipeline
 				{
 	                    		echo 'Building the code...'
 	                    		echo 'Using Maven to compile and package the code.'
-			    		bat 'echo Simulated Build output > build.log 
+			    		bat 'echo Simulated Build output > build.log'
 					// sh '''mvn clean package > build.log 2>&1'''
                 		}
             		}
