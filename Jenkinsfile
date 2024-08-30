@@ -4,8 +4,8 @@ pipeline
 
 	environment 
 	{
-		//EMAIL_RECIPIENT = 'suterliam85@gmail.com'
-		EMAIL_RECIPIENT = 's223077216@deakin.edu.au'
+		EMAIL_RECIPIENT = 'suterliam85@gmail.com'
+		//EMAIL_RECIPIENT = 's223077216@deakin.edu.au'
 	}
 
 	stages 
