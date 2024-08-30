@@ -43,7 +43,7 @@ pipeline
 					archiveArtifacts artifacts: 'test.log'
 			                mail to: "${EMAIL_RECIPIENT}",
 				                subject: "Unit and Integration Tests Successful",
-				                body: "The Unit and Integration Tests stage completed successfully. Logs are attached."//,
+				                body: "The Unit and Integration Tests stage completed successfully. Logs are attached.",
 						attachmentsPattern: "test.log"
 			        }
 		                failure 
@@ -51,7 +51,7 @@ pipeline
 					archiveArtifacts artifacts: 'test.log'
 			                mail to: "${EMAIL_RECIPIENT}",
 				                subject: "Unit and Integration Tests Failed",
-				                body: "The Unit and Integration Tests stage failed. Logs are attached."//,
+				                body: "The Unit and Integration Tests stage failed. Logs are attached.",
 						attachmentsPattern: "test.log"
 		                }
 	            	}
@@ -89,7 +89,7 @@ pipeline
 					archiveArtifacts artifacts: 'security_scan.log'
 		                        mail to: "${EMAIL_RECIPIENT}",
 			                        subject: "Security Scan Successful",
-			                        body: "The Security Scan stage completed successfully. Logs are attached."//,
+			                        body: "The Security Scan stage completed successfully. Logs are attached.",
 						attachmentsPattern: "security.log"
 	                	}
 	                	failure 
@@ -97,7 +97,7 @@ pipeline
 					archiveArtifacts artifacts: 'security_scan.log'
 		                        mail to: "${EMAIL_RECIPIENT}",
 			                        subject: "Security Scan Failed",
-			                        body: "The Security Scan stage failed. Logs are attached."//,
+			                        body: "The Security Scan stage failed. Logs are attached.",
 			                        attachmentsPattern: "security.log"
 	                	}
 		        }
