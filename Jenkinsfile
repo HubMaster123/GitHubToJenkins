@@ -17,7 +17,8 @@ pipeline
 				{
 	                    		echo 'Building the code...'
 	                    		echo 'Using Maven to compile and package the code.'
-			    		//sh '''mvn clean package > build.log 2>&1'''
+			    		bat 'echo Simulated Build output > build.log 
+					// sh '''mvn clean package > build.log 2>&1'''
                 		}
             		}
         	}
@@ -32,25 +33,26 @@ pipeline
 				        echo 'Using JUnit for unit testing and Maven Surefire Plugin for integration tests.'
 				        echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
 					//sh 'mvn test > test.log 2>&1'
+					bat 'echo Simulated test output > test.log'
 	                	}
 	            	}
 	            	post 
 			{
 			        success 
 				{
-					//archiveArtifacts artifacts: 'test.log'
+					archiveArtifacts artifacts: 'test.log'
 			                mail to: "${EMAIL_RECIPIENT}",
 				                subject: "Unit and Integration Tests Successful",
 				                body: "The Unit and Integration Tests stage completed successfully. Logs are attached."//,
-						//attachmentsPattern: "test.log"
+						attachmentsPattern: "test.log"
 			        }
 		                failure 
 				{
-					//archiveArtifacts artifacts: 'test.log'
+					archiveArtifacts artifacts: 'test.log'
 			                mail to: "${EMAIL_RECIPIENT}",
 				                subject: "Unit and Integration Tests Failed",
 				                body: "The Unit and Integration Tests stage failed. Logs are attached."//,
-						//attachmentsPattern: "test.log"
+						attachmentsPattern: "test.log"
 		                }
 	            	}
 	        }
@@ -77,25 +79,26 @@ pipeline
 		                	echo 'Using OWASP Dependency Check to scan the code for vulnerabilities.'
 		                	echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
 					//sh '''mvn test > security.log 2>&1'''
+					bat 'echo Simulated security scan output > security.log'
 	                	}
 			}
 	            	post 
 			{
 	                	success 
 				{
-					//archiveArtifacts artifacts: 'security_scan.log'
+					archiveArtifacts artifacts: 'security_scan.log'
 		                        mail to: "${EMAIL_RECIPIENT}",
 			                        subject: "Security Scan Successful",
 			                        body: "The Security Scan stage completed successfully. Logs are attached."//,
-						//attachmentsPattern: "security.log"
+						attachmentsPattern: "security.log"
 	                	}
 	                	failure 
 				{
-					//archiveArtifacts artifacts: 'security_scan.log'
+					archiveArtifacts artifacts: 'security_scan.log'
 		                        mail to: "${EMAIL_RECIPIENT}",
 			                        subject: "Security Scan Failed",
 			                        body: "The Security Scan stage failed. Logs are attached."//,
-			                        //attachmentsPattern: "security.log"
+			                        attachmentsPattern: "security.log"
 	                	}
 		        }
 	        }
