@@ -27,7 +27,7 @@ pipeline {
                 success {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: 'suterliam01@outlook.com',
+                        from: 'suterliam85@gmail.com',
                         to: 's223077216@deakin.edu.au',
                         subject: "Unit and Integration Tests Successful",
                         body: "The Unit and Integration Tests stage completed successfully. Logs are attached.",
@@ -37,7 +37,7 @@ pipeline {
                 failure {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: 'suterliam01@outlook.com',
+                        from: 'suterliam85@gmail.com',
                         to: 's223077216@deakin.edu.au',
                         subject: "Unit and Integration Tests Failed",
                         body: "The Unit and Integration Tests stage failed. Logs are attached.",
@@ -68,7 +68,7 @@ pipeline {
                 success {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: 'suterliam01@outlook.com',
+                        from: 'suterliam85@gmail.com',
                         to: 's223077216@deakin.edu.au',
                         subject: "Security Scan Successful",
                         body: "The Security Scan stage completed successfully. Logs are attached.",
@@ -78,7 +78,7 @@ pipeline {
                 failure {
                     emailext (
                         //to: "${EMAIL_RECIPIENT}",
-                        from: 'suterliam01@outlook.com',
+                        from: 'suterliam85@gmail.com',
                         to: 's223077216@deakin.edu.au',
                         subject: "Security Scan Failed",
                         body: "The Security Scan stage failed. Logs are attached.",
