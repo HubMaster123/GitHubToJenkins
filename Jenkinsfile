@@ -12,6 +12,7 @@ pipeline{
                     body: "Build was successful!", 
                 }
             }
+        }
     }
 /*
 pipeline {
