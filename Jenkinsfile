@@ -1,3 +1,4 @@
+/*
 pipeline{
     agent any
     stages{
@@ -15,7 +16,8 @@ pipeline{
         }
     }
 }
-/*
+*/
+
 pipeline {
     agent any
 
@@ -44,22 +46,16 @@ pipeline {
             post {
                 success {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
-                        //from: 'suterliam85@gmail.com',
-                        //to: 'suterliam01@gmail.com',
+                        mail to: "${EMAIL_RECIPIENT}",
                         subject: "Unit and Integration Tests Successful",
                         body: "The Unit and Integration Tests stage completed successfully. Logs are attached.",
-                        attachmentsPattern: "*.log"
                     )
                 }
                 failure {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
-                        //from: 'suterliam85@gmail.com',
-                        //to: 'suterliam01@gmail.com',
+                        mail to: "${EMAIL_RECIPIENT}",
                         subject: "Unit and Integration Tests Failed",
                         body: "The Unit and Integration Tests stage failed. Logs are attached.",
-                        attachmentsPattern: "*.log"
                     )
                 }
             }
@@ -85,22 +81,17 @@ pipeline {
             post {
                 success {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
-                        //from: 'suterliam85@gmail.com',
-                        //to: 'suterliam01@gmail.com',
+                        mail to: "${EMAIL_RECIPIENT}",
                         subject: "Security Scan Successful",
                         body: "The Security Scan stage completed successfully. Logs are attached.",
-                        attachmentsPattern: "*.log"
                     )
                 }
                 failure {
                     emailext (
-                        to: "${EMAIL_RECIPIENT}",
-                        //from: 'suterliam85@gmail.com',
-                        //to: 'suterliam01@gmail.com',
+                        mail to: "${EMAIL_RECIPIENT}",
                         subject: "Security Scan Failed",
                         body: "The Security Scan stage failed. Logs are attached.",
-                        attachmentsPattern: "*.log"
+                        //attachmentsPattern: "*.log"
                     )
                 }
             }
@@ -134,4 +125,4 @@ pipeline {
         }
     }
 }
-*/
+
