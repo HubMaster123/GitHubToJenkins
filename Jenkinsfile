@@ -12,7 +12,7 @@ pipeline {
                 script {
                     echo 'Building the code...'
                     echo 'Using Maven to compile and package the code.'
-		    sh 'mvn clean package > build.log 2>&1'
+		    sh '''mvn clean package > build.log 2>&1'''
                 }
             }
         }
@@ -59,7 +59,7 @@ pipeline {
                     echo 'Performing security scan...'
                     echo 'Using OWASP Dependency Check to scan the code for vulnerabilities.'
                     echo "Attempting to send email to: ${EMAIL_RECIPIENT}"
-		    sh 'mvn test > security.log 2>&1
+		    sh '''mvn test > security.log 2>&1'''
                 }
             }
             post {
