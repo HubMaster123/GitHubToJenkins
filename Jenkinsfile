@@ -86,7 +86,7 @@ pipeline
 			{
 	                	success 
 				{
-					archiveArtifacts artifacts: 'security_scan.log'
+					archiveArtifacts artifacts: 'security.log'
 		                        emailext to: "${EMAIL_RECIPIENT}",
 			                        subject: "Security Scan Successful",
 			                        body: "The Security Scan stage completed successfully. Logs are attached.",
@@ -94,7 +94,7 @@ pipeline
 	                	}
 	                	failure 
 				{
-					archiveArtifacts artifacts: 'security_scan.log'
+					archiveArtifacts artifacts: 'security.log'
 		                        emailext to: "${EMAIL_RECIPIENT}",
 			                        subject: "Security Scan Failed",
 			                        body: "The Security Scan stage failed. Logs are attached.",
